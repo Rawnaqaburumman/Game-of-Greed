@@ -1,4 +1,4 @@
 from tests.flow.flo import Flo
 
-def test_yes_for_wanna_play():
+def test_one_and_done():
     Flo.test('tests/flow/one_and_done.sim.txt')

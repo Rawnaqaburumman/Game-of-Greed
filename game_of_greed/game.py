@@ -1,60 +1,60 @@
-from banker import Banker
-
+from game_of_greed.banker import Banker
+from game_of_greed.game_logic import GameLogic
 
 class Game:
-    def __init__(self, roller = None):
-        self.round = 0
-        self.banker = Banker()
-        self.roller = roller
-        self.total = 0
-    
+    gameBank= Banker()
+    def __init__(self, roller=None): self.roller, self.round = roller, 1
+
+    def roll_dice_play(self):
+        print('Rolling 6 dice...')
+        dice = self.roller(6)
+        printableDice = ','.join([str(d) for d in dice])
+        print(printableDice)
+        keepOrQuit = input("Enter dice to keep (no spaces), or (q)uit: ")
+        if keepOrQuit == 'q': self.userQuit()
+        else:
+            userChoice = self.user_choice_to_tuple(keepOrQuit)
+            self.gameBank.shelf(userChoice)
+            print(f'You have {userChoice} unbanked points and 5 dice remaining')
+            userInput22 = input('(r)oll again, (b)ank your points or (q)uit ')
+            self.userChoTwo(userInput22)
+
+    def user_choice_to_tuple(self,userInput):
+            List=list(userInput)
+            intValue=[int(x)for x in List ]
+            rollingScore=GameLogic.calculate_score(tuple(intValue))
+            return rollingScore
+
+    def userQuit(self):
+        if self.gameBank.balance != 0:
+            print(f"Total score is {self.gameBank.balance} points")
+        print(f'Thanks for playing. You earned {self.gameBank.balance} points')
+
+    def userChoTwo(self,userChoice):
+        if userChoice == 'r':
+                self.roll_dice_play()
+        elif userChoice =='b':
+            print(f'You banked {self.gameBank.shelved} points in round {self.round}')
+            self.gameBank.bank()
+            print(f'Total score is {self.gameBank.balance} points')
+            self.round+=1
+            self.rolling()
+        elif userChoice == 'q':
+            self.userQuit()
+
+    def rolling(self):
+            print(f'Starting round {self.round}')
+            self.roll_dice_play()
+  
+                
     def play(self):
-        # playing the game:
-        # 1.print welcome msg
-        # 2.ask if play? (y or n)
+        print("Welcome to Game of Greed")
+        userInput = input("Wanna play? ")
+        if userInput == 'n':
+            print("OK. Maybe another time")
+        else:
+            self.rolling()
 
-        # starting the game:
-        # 3.Rolling (start game)
-        # 4.ask a choice (dice or q)
-        # 5.show round score
-        # 6.ask for r(roll), b(bank), or q(quit)
-        # 7. if b: go to banking
-        # 8. give the user update about his points after every round
-        
-
-        # Quitting:
-        # 1. show total score
-        # 2. thanks msg
-
-        # Banking:
-        #   a. save the current score in total
-        #   b. show banked points
-        #   c. show total score
-        #   d. go to step #3 above
-        pass
-
-
-
-# class Game:
-#     def __init__(self, roller= None):
-#         self.roller = roller
-#         print('Welcome to the Game')
-
-#     def play(self):
-#         wanna_play = input('Wanna Play?')
-#         if wanna_play == 'n':
-#             print('ok maybe another Time')
-#         else:
-#             print('Starting round 1')
-#             print('Rolling 6 dice...')
-#             rolled_dice = self.roller(6)
-#             nums = []
-#             for i in rolled_dice:
-#                 nums.append(str(i))
-#             print(','.join(nums))
-#             decison = input('Input?')
-
-
-# if __name__=="__main__":
-#     game = Game()
-#     game.play()
+if __name__ == "__main__":
+    game = Game(GameLogic.roll_dice)
+    game.play()
