@@ -1,1 +1,1 @@
-pull request: https://github.com/Rawnaqaburumman/Game-of-Greed/pull/2
+pull request: https://github.com/Rawnaqaburumman/Game-of-Greed/pull/7
