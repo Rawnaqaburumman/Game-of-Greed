@@ -12,6 +12,8 @@ class Game:
         print(printableDice)
         keepOrQuit = input("Enter dice to keep (no spaces), or (q)uit: ")
         if keepOrQuit == 'q': self.userQuit()
+        if keepOrQuit == '555': 
+            print ('Cheater!!! Or possibly made a typo...')
         else:
             userChoice = self.user_choice_to_tuple(keepOrQuit)
             self.gameBank.shelf(userChoice)
