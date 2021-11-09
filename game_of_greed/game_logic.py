@@ -20,6 +20,7 @@ class GameLogic:
             (tuple(), 0),
             ((1,), 100),
             ((1, 1), 200),
+
             ((1, 1, 1), 1000),
             ((1, 1, 1, 1), 2000),
             ((1, 1, 1, 1, 1), 3000),
@@ -69,4 +70,4 @@ class GameLogic:
                 if shelved == i:
                     return value
 # print (GameLogic.calculate_score((1,1,1,1)))
-print(GameLogic.roll_dice(4))
+print('result',GameLogic.roll_dice(4))
