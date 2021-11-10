@@ -24,7 +24,7 @@ class Game:
             self.number_of_dice -= len(keepOrQuit)
             userChoice = self.user_choice_to_tuple(keepOrQuit)
             self.gameBank.shelf(userChoice)
-            print(f'You have {userChoice} unbanked points and {self.number_of_dice} dice remaining')
+            print(f'You have {self.gameBank.shelved} unbanked points and {self.number_of_dice} dice remaining')
             userInput22 = input('(r)oll again, (b)ank your points or (q)uit ')
             self.userChoTwo(userInput22)
 
@@ -80,6 +80,7 @@ class Game:
            print (f'You banked 0 points in round {self.round}')
            print(f'Total score is {self.gameBank.balance} points')
            self.number_of_dice = 6
+           self.round+=1
            self.gameBank.clear_shelf()
            self.rolling()
 
