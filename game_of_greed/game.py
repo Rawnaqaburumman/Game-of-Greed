@@ -15,7 +15,6 @@ class Game:
         print(printableDice)
         self.zilch(dice)
         keepOrQuit = input("Enter dice to keep (no spaces), or (q)uit: ")
-        
         if keepOrQuit == 'q': self.userQuit()
         else:
             if collections.Counter ([char for char in keepOrQuit])['5']> collections.Counter ([char for char in printableDice])['5']: 
@@ -39,6 +38,9 @@ class Game:
         if self.gameBank.balance != 0 or self.gameBank.shelved !=0 :
             print(f"Total score is {self.gameBank.balance} points")
         print(f'Thanks for playing. You earned {self.gameBank.balance} points')
+        self.gameBank.balance =0
+        self.gameBank.shelved = 0
+        self.round = 0
 
     def userChoTwo(self,userChoice):
         if userChoice == 'r':
@@ -54,17 +56,19 @@ class Game:
             self.userQuit()
 
     def rolling(self):
-            print(f'Starting round {self.round}')
-            self.roll_dice_play()
-  
-                
+        print(f'Starting round {self.round}')
+        self.roll_dice_play()
+        
+              
     def play(self):
         print("Welcome to Game of Greed")
         userInput = input("Wanna play? ")
         if userInput == 'n':
             print("OK. Maybe another time")
+            pass
         else:
             self.rolling()
+
     
     def zilch(self,value):
         zilch_6 = collections.Counter (value)[6]
@@ -72,14 +76,14 @@ class Game:
         zilch_4 = collections.Counter (value)[3]
         zilch_2 = collections.Counter (value)[2]
         if (1 not in value and 5 not in value) and (zilch_6 <3 and zilch_3 <3 and zilch_4 <3 and zilch_2 <3):
-           print ('first block') 
            print ('Zilch!!! Round over')
            print (f'You banked 0 points in round {self.round}')
            print(f'Total score is {self.gameBank.balance} points')
            self.number_of_dice = 6
+           self.gameBank.clear_shelf()
            self.rolling()
 
 if __name__ == "__main__":
     game = Game(GameLogic.roll_dice)
     # game.play()
-    game.zilch((2,6,4,3,3))
+    game.zilch((4,))

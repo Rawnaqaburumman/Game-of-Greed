@@ -5,14 +5,15 @@ class Banker:
 
 
    def shelf(self,input):
-       self.shelved=input
+       self.shelved+=input
        return self.shelved
 
 
    def bank(self):
+       deposited = self.shelved
        self.balance+=self.shelved
        self.shelved=0
-
+       return deposited
 
    def clear_shelf(self):
        self.shelved=0
