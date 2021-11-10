@@ -39,6 +39,8 @@ class Flo:
                     self.old_print("roll" + str(roll))
 
                     self.rolls.append(roll)
+            # self.old_print(self.responses)
+
 
     @staticmethod
     def test(path):
@@ -57,6 +59,7 @@ class Flo:
     def _mock_print(self, *args, **kwargs):
 
         self.prints += str(*args) + "\n"
+        # self.old_print(self.prints)
 
     def _mock_input(self, *args, **kwargs):
 
@@ -88,7 +91,7 @@ class Flo:
 
         builtins.print = self.old_print
         builtins.input = self.old_input
-
+        
 
 if __name__ == "__main__":
     Flo.test("tests/flow/bank_one_roll_then_quit.sim.txt")

@@ -1,25 +1,14 @@
 import random
 class GameLogic:
-#    @staticmethod
     def roll_dice(input):
-   
-
         return tuple(random.randint(1,6) for _ in range(0,input))
-
-        #other methode 
-        # result = []        
-        #   for _ in range(input):           
-        #     result.append(random.randint(1,6))     
-        #   return tuple (result)
-
-
-
 
     def calculate_score(shelved):
             rules =[
             (tuple(), 0),
             ((1,), 100),
             ((1, 1), 200),
+
             ((1, 1, 1), 1000),
             ((1, 1, 1, 1), 2000),
             ((1, 1, 1, 1, 1), 3000),
@@ -65,8 +54,5 @@ class GameLogic:
             ((1, 6, 3, 2, 5, 4),1500)
         ]
             for i,value in rules:
-                # print(i, len(i))
                 if shelved == i:
                     return value
-# print (GameLogic.calculate_score((1,1,1,1)))
-print(GameLogic.roll_dice(4))
