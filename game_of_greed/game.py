@@ -81,7 +81,6 @@ class Game:
            print(f'Total score is {self.gameBank.balance} points')
            self.number_of_dice = 6
            self.round+=1
-           self.gameBank.clear_shelf()
            self.rolling()
 
 if __name__ == "__main__":
