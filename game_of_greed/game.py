@@ -5,13 +5,16 @@ import collections
 class Game:
     gameBank= Banker()
     def __init__(self, roller=None): 
-        self.roller, self.round = roller, 1
+        self.roller=roller or GameLogic.roll_dice
+        self.round = 1
         self.number_of_dice = 6
 
     def roll_dice_play(self):
         print(f'Rolling {self.number_of_dice} dice...')
         dice = self.roller(self.number_of_dice) or GameLogic.roll_dice(self.number_of_dice)
+        print(dice)
         printableDice = ','.join([str(d) for d in dice])
+      
         print(printableDice)
         self.zilch(dice)
         keepOrQuit = input("Enter dice to keep (no spaces), or (q)uit: ")
@@ -86,5 +89,5 @@ class Game:
 
 if __name__ == "__main__":
     game = Game(GameLogic.roll_dice)
-    # game.play()
-    game.zilch((4,))
+    game.play()
+    # game.zilch((4,))
