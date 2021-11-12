@@ -1,10 +1,11 @@
 """Place in root of Game of Greed Project,
 at same level as pyproject.toml
 """
-
+import collections
 import builtins
 import re
 from abc import abstractmethod
+
 
 
 from game_of_greed.game import Game
@@ -33,30 +34,34 @@ class BasePlayer:
         return self.old_input(*args)
 
     @classmethod
-    def play(cls, num_games=1):
+    def play(cls, num_games=10):
 
         mega_total = 0
 
         for i in range(num_games):
             player = cls()
-            game = Game() # doesn't pass a mock roller
+            game = Game()
             try:
                 game.play()
-                num_games=game.round
+                mega_total= game.total
             except SystemExit:
-                # in game system exit is fine
-                # because that's how they quit.
                 pass
-
             mega_total += player.total_score
             player.reset()
 
+        # if game.total == 0:
+        #     rawnaq.play()
+        # else:
+        #     print(
+        #         f"Congrats! {num_games} games (maybe) played with average score of {game.total //( num_games-1)}"
+        #     )
+
         print(
-            f"Congrats! {num_games} games (maybe) played with average score of {mega_total}"
+            f"Congrats! {num_games} games (maybe) played with average score of {game.total //( num_games-1)}"
         )
 
 
-class  NervousNellie(BasePlayer):
+class NervousNellie(BasePlayer):
 
     def _mock_print(self, *args):
         self.old_print(*args) 
@@ -83,11 +88,10 @@ class  NervousNellie(BasePlayer):
         else:
             return 'q'
 
+    
 
 
 
 if __name__=="__main__":
-    # bot1 = BasePlayer()
-    # bot1.play()
     rawnaq= NervousNellie()
     rawnaq.play()

@@ -8,6 +8,7 @@ class Game:
         self.roller=roller or GameLogic.roll_dice
         self.round = 1
         self.number_of_dice = 6
+        self.total=0
 
     def roll_dice_play(self):
         print(f'Rolling {self.number_of_dice} dice...')
@@ -41,6 +42,8 @@ class Game:
         if self.gameBank.balance != 0 or self.gameBank.shelved !=0 :
             print(f"Total score is {self.gameBank.balance} points")
         print(f'Thanks for playing. You earned {self.gameBank.balance} points')
+        totalOfAll = self.gameBank.balance
+        self.total=self.gameBank.balance
         self.gameBank.balance =0
         self.gameBank.shelved = 0
         self.round = 0
@@ -53,6 +56,7 @@ class Game:
             print(f'You banked {self.gameBank.shelved} points in round {self.round}')
             self.gameBank.bank()
             print(f'Total score is {self.gameBank.balance} points')
+            self.total=self.gameBank.balance
             self.round+=1
             self.rolling()
         elif userChoice == 'q':
