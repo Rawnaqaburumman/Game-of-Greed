@@ -13,6 +13,7 @@ from game_of_greed.game_logic import GameLogic
 
 
 class BasePlayer:
+    sum = 0
     def __init__(self):
         self.old_print = print
         self.old_input = input
@@ -43,7 +44,7 @@ class BasePlayer:
             game = Game(GameLogic.roll_dice)
             try:
                 game.play()
-                mega_total= game.total
+                print ( f'sum = {BasePlayer.sum}')
             except SystemExit:
                 pass
             mega_total += player.total_score
@@ -55,13 +56,13 @@ class BasePlayer:
         #     print(
         #         f"Congrats! {num_games} games (maybe) played with average score of {game.total //( num_games-1)}"
         #     )
-
         print(
-            f"Congrats! {num_games} games (maybe) played with average score of {game.total //( num_games-1)}"
+            f"Congrats! {num_games} games (maybe) played with average score of {BasePlayer.sum //num_games}"
         )
 
 
 class NervousNellie(BasePlayer):
+    
 
     def _mock_print(self, *args):
         self.old_print(*args) 
@@ -69,6 +70,10 @@ class NervousNellie(BasePlayer):
         if printed_data[0].isdigit():
             self.rolled_dice = tuple(int(ch) for ch in printed_data.split(','))
             # '2,3,1,2,6,4' ==> (2,3,1,2,6,4)
+        if printed_data.startswith('Thanks for playing. You earned'):
+            self.total_score = int ((printed_data.replace('Thanks for playing. You earned ','')).replace(' points',''))
+            BasePlayer.sum += self.total_score/2
+     
 
     def _mock_input(self, *args):
         self.old_print(*args)
