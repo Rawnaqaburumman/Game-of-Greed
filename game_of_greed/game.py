@@ -8,6 +8,7 @@ class Game:
     def __init__(self, roller=None): 
         self.roller, self.round = roller, 1
         self.number_of_dice = 6
+        self.total = self.gameBank.balance
 
     def roll_dice_play(self):
         print(f'Rolling {self.number_of_dice} dice...')
