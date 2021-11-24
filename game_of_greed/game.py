@@ -1,7 +1,7 @@
 from game_of_greed.banker import Banker
 from game_of_greed.game_logic import GameLogic
 import collections
-
+#pycharm
 class Game:
     gameBank= Banker()
 
